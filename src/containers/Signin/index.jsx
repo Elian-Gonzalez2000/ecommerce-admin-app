@@ -3,16 +3,18 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
 import { login } from "../../actions";
+import { useDispatch } from "react-redux";
 
 const Signin = (props) => {
-   const userLogin = () => {
+   const dispatch = useDispatch();
+
+   const userLogin = (e) => {
       e.preventDefault();
       const user = {
          email: "riz@webscript.info",
          password: "123456",
       };
-
-      login(user);
+      dispatch(login(user));
    };
 
    return (
