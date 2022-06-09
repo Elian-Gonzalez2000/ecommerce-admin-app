@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import Input from "../../components/UI/Input";
-import { login } from "../../actions";
-import { useDispatch } from "react-redux";
+import { isUserLoggedIn, login } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const Signin = (props) => {
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
+   const auth = useSelector((state) => state.auth);
+
    const dispatch = useDispatch();
+
+   useEffect(() => {
+      if (!auth.authenticate) {
+         dispatch(isUserLoggedIn());
+      }
+   }, []);
 
    const userLogin = (e) => {
       e.preventDefault();
       const user = {
-         email: "riz@webscript.info",
-         password: "123456",
+         email,
+         password,
       };
       dispatch(login(user));
+
+      if (auth.authenticate) {
+         return <Navigate to={"/"} replace={true} />;
+      }
    };
 
    return (
@@ -26,17 +42,17 @@ const Signin = (props) => {
                      <Input
                         label="Email Address"
                         placeholder="Email Address..."
-                        value=""
+                        value={email}
                         type="email"
-                        onChange={() => {}}
+                        onChange={(e) => setEmail(e.target.value)}
                      />
 
                      <Input
                         label="Password"
                         placeholder="Password..."
-                        value=""
+                        value={password}
                         type="password"
-                        onChange={() => {}}
+                        onChange={(e) => setPassword(e.target.value)}
                      />
                      <Button variant="primary" type="submit">
                         Submit
