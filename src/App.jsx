@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./containers/Home";
 import Signin from "./containers/Signin";
 import Signup from "./containers/Signup";
+import PrivateRoute from "./components/HOC/PrivateRoute";
 
 function App() {
    const url = "http://localhost:3002/api/admin/signin";
@@ -50,7 +51,11 @@ function App() {
       <div className="App">
          <Router>
             <Routes>
-               <Route path="/" exact element={<Home />} />
+               <Route
+                  path="/"
+                  exact
+                  element={<PrivateRoute component={<Home />} />}
+               />
                <Route path="/signin" element={<Signin />} />
                <Route path="/signup" element={<Signup />} />
             </Routes>

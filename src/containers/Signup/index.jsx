@@ -16,7 +16,7 @@ const Signup = (props) => {
                            placeholder="First Name..."
                            value=""
                            type="text"
-                           onChange={() => {}}
+                           onChange={(e) => {}}
                         />
                      </Col>
                      <Col md={6}>
