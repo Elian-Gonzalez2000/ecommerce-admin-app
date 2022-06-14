@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./containers/Home";
 import Signin from "./containers/Signin";
 import Signup from "./containers/Signup";
 import PrivateRoute from "./components/HOC/PrivateRoute";
+import { useSelector, useDispatch } from "react-redux";
+import { isUserLoggedIn } from "./actions";
 
 function App() {
    const url = "http://localhost:3002/api/admin/signin";
@@ -47,19 +49,21 @@ function App() {
       })
       .catch((error) => console.log(error));
  */
+   const dispatch = useDispatch();
+   const auth = useSelector((state) => state.auth);
+
+   useEffect(() => {
+      if (!auth.authenticate) {
+         dispatch(isUserLoggedIn());
+      }
+   }, []);
    return (
       <div className="App">
-         <Router>
-            <Routes>
-               <Route
-                  path="/"
-                  exact
-                  element={<PrivateRoute component={<Home />} />}
-               />
-               <Route path="/signin" element={<Signin />} />
-               <Route path="/signup" element={<Signup />} />
-            </Routes>
-         </Router>
+         <Routes>
+            <Route path="/" exact element={<PrivateRoute component={Home} />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+         </Routes>
       </div>
    );
 }
