@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { isUserLoggedIn } from "./actions";
 import Products from "./containers/Products";
 import Orders from "./containers/Orders";
+import Category from "./containers/Category";
 
 function App() {
    const url = "http://localhost:3002/api/admin/signin";
@@ -70,6 +71,10 @@ function App() {
             <Route
                path="/orders"
                element={<PrivateRoute component={Orders} />}
+            />
+            <Route
+               path="/categories"
+               element={<PrivateRoute component={Category} />}
             />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
