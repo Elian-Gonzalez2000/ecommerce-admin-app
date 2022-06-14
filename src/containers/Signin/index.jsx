@@ -22,7 +22,7 @@ const Signin = (props) => {
       };
       dispatch(login(user));
    };
-   console.log(auth);
+
    if (auth.authenticate) {
       console.log(auth);
       return <Navigate to={"/"} replace={true} />;

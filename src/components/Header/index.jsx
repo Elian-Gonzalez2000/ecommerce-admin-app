@@ -1,7 +1,7 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, Navigate } from "react-router-dom";
 import { signout } from "../../actions";
 
 const Header = () => {
@@ -10,6 +10,7 @@ const Header = () => {
 
    const logout = () => {
       dispatch(signout());
+      return <Navigate to={"/"} replace={true} />;
    };
 
    const renderLoggedInLinks = () => {

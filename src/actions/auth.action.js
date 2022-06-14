@@ -3,34 +3,30 @@ import axios from "../helpers/axios.js";
 
 export const login = (user) => {
    return async (dispatch) => {
-      dispatch({ type: authConstants.LOGIN_REQUEST });
-      const res = await axios.post("/admin/signin", {
-         ...user,
-      });
-
-      if (res.status === 200) {
-         const { token, user } = res.data;
-         localStorage.setItem("token", token);
-         localStorage.setItem("user", JSON.stringify(user));
-         dispatch({
-            type: authConstants.LOGIN_SUCCESS,
-            payload: { token, user },
+      try {
+         dispatch({ type: authConstants.LOGIN_REQUEST });
+         const res = await axios.post("/admin/signin", {
+            ...user,
          });
-      } else {
-         if (res.status === 400) {
+
+         console.log(res);
+         if (res.status === 200) {
+            const { token, user } = res.data;
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+            dispatch({
+               type: authConstants.LOGIN_SUCCESS,
+               payload: { token, user },
+            });
+         }
+      } catch (error) {
+         if (error.response.status === 400) {
             dispatch({
                type: authConstants.LOGIN_FAILURE,
-               payload: { error: res.data.error },
+               payload: { error: error.response.data.message },
             });
          }
       }
-
-      dispatch({
-         type: authConstants.LOGIN_REQUEST,
-         payload: {
-            ...user,
-         },
-      });
    };
 };
 

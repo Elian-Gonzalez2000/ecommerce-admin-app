@@ -32,9 +32,9 @@ const Signup = (props) => {
       return <Navigate to={"/"} replace={true} />;
    }
 
-   /* if (user.loading) {
+   if (user.loading) {
       return <p>Loading...</p>;
-   } */
+   }
 
    return (
       <Layout>
