@@ -7,6 +7,8 @@ import Signup from "./containers/Signup";
 import PrivateRoute from "./components/HOC/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
 import { isUserLoggedIn } from "./actions";
+import Products from "./containers/Products";
+import Orders from "./containers/Orders";
 
 function App() {
    const url = "http://localhost:3002/api/admin/signin";
@@ -61,6 +63,14 @@ function App() {
       <div className="App">
          <Routes>
             <Route path="/" exact element={<PrivateRoute component={Home} />} />
+            <Route
+               path="/products"
+               element={<PrivateRoute component={Products} />}
+            />
+            <Route
+               path="/orders"
+               element={<PrivateRoute component={Orders} />}
+            />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
          </Routes>
