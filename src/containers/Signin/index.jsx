@@ -21,11 +21,12 @@ const Signin = (props) => {
          password,
       };
       dispatch(login(user));
-
-      if (auth.authenticate) {
-         return <Navigate to={"/"} replace={true} />;
-      }
    };
+   console.log(auth);
+   if (auth.authenticate) {
+      console.log(auth);
+      return <Navigate to={"/"} replace={true} />;
+   }
 
    return (
       <Layout>
