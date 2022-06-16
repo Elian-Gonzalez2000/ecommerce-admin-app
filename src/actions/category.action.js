@@ -16,11 +16,12 @@ export const getAllCategory = () => {
             });
          }
       } catch (err) {
-         const { status, data } = error.response;
+         const { status, data } = err.response;
+         console.log(data);
          if (status === 400) {
             dispatch({
                type: authConstants.LOGIN_FAILURE,
-               payload: { error: data.message },
+               payload: { err: data.message },
             });
          }
       }
