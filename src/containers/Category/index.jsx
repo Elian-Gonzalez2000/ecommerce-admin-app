@@ -39,7 +39,7 @@ const Category = () => {
       let myCategories = [];
       for (let category of categoryList) {
          myCategories.push(
-            <li key={category.name}>
+            <li key={category.name} style={{ textAlign: "left" }}>
                {category.name}
                {category.children.length > 0 ? (
                   <ul>{renderCategories(category.children)}</ul>
@@ -47,7 +47,7 @@ const Category = () => {
             </li>
          );
       }
-      return categories;
+      return myCategories;
    };
 
    const createCategoryList = (categories, options = []) => {
@@ -60,7 +60,7 @@ const Category = () => {
       return options;
    };
 
-   const handleCategoryImage = () => {
+   const handleCategoryImage = (e) => {
       setCategoryImage(e.target.files[0]);
    };
 
@@ -81,7 +81,10 @@ const Category = () => {
                </Col>
             </Row>
             <Row>
-               <Col md={12}>{renderCategories(category.categories)}</Col>
+               <Col md={12}>
+                  {" "}
+                  <ul>{renderCategories(category.categories)}</ul>
+               </Col>
             </Row>
          </Container>
 
