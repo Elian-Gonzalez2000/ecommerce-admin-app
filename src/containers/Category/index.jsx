@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory, getAllCategory } from "../../actions";
+import { addCategory } from "../../actions";
 import Input from "../../components/UI/Input";
+import Modal from "../../components/UI/Modal";
 
 const Category = () => {
    const [categoryName, setCategoryName] = useState("");
@@ -13,10 +14,6 @@ const Category = () => {
    const category = useSelector((state) => state.category);
    const dispatch = useDispatch();
 
-   useEffect(() => {
-      dispatch(getAllCategory());
-   }, []);
-
    const handleClose = () => {
       const form = new FormData();
       form.append("name", categoryName);
@@ -24,6 +21,9 @@ const Category = () => {
       form.append("categoryImage", categoryImage);
 
       dispatch(addCategory(form));
+
+      setCategoryName("");
+      setParentCategoryId("");
 
       // const cat = {
       //    categoryName,
@@ -87,44 +87,35 @@ const Category = () => {
                </Col>
             </Row>
          </Container>
+         <Modal
+            show={show}
+            onClose={handleClose}
+            onHide={handleClose}
+            modalTitle={"Add new category"}
+         >
+            <Input
+               value={categoryName}
+               placeholder={"Category Name"}
+               onChange={(e) => setCategoryName(e.target.value)}
+            />
 
-         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-               <Modal.Title>Add category</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-               <Input
-                  value={categoryName}
-                  placeholder={"Category Name"}
-                  onChange={(e) => setCategoryName(e.target.value)}
-               />
-
-               <select
-                  className="form-control"
-                  value={parentCategoryId}
-                  onChange={(e) => setParentCategoryId(e.target.value)}
-               >
-                  <option>Select Category</option>
-                  {createCategoryList(category.categories).map((option) => (
-                     <option key={option.value} value={option.value}>
-                        {option.name}
-                     </option>
-                  ))}
-               </select>
-               <input
-                  type="file"
-                  name="categoryImage"
-                  onChange={handleCategoryImage}
-               />
-            </Modal.Body>
-            <Modal.Footer>
-               <Button variant="secondary" onClick={handleClose}>
-                  Close
-               </Button>
-               <Button variant="primary" onClick={handleClose}>
-                  Save Changes
-               </Button>
-            </Modal.Footer>
+            <select
+               className="form-control"
+               value={parentCategoryId}
+               onChange={(e) => setParentCategoryId(e.target.value)}
+            >
+               <option>Select Category</option>
+               {createCategoryList(category.categories).map((option) => (
+                  <option key={option.value} value={option.value}>
+                     {option.name}
+                  </option>
+               ))}
+            </select>
+            <input
+               type="file"
+               name="categoryImage"
+               onChange={handleCategoryImage}
+            />
          </Modal>
       </Layout>
    );
