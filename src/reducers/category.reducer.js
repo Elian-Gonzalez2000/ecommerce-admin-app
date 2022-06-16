@@ -8,35 +8,46 @@ const initialState = {
 
 const buildNewCategories = (parentId, categories, category) => {
    let myCategories = [];
+
+   if (parentId == undefined) {
+      return [
+         ...categories,
+         {
+            _id: category._id,
+            name: category_name,
+            slug: category.slug,
+            children: [],
+         },
+      ];
+   }
+
    for (let cat of categories) {
       if (cat._id == parentId) {
          myCategories.push({
             ...cat,
-            children:
-               cat.children && cat.children.length > 0
-                  ? buildNewCategories(
-                       parentId,
-                       [
-                          ...car.children,
-                          {
-                             _id: category._id,
-                             name: category.name,
-                             slug: category.slug,
-                             parentId: category.parentId,
-                             children: category.children,
-                          },
-                       ],
-                       category
-                    )
-                  : [],
+            children: cat.children
+               ? buildNewCategories(
+                    parentId,
+                    [
+                       ...car.children,
+                       {
+                          _id: category._id,
+                          name: category.name,
+                          slug: category.slug,
+                          parentId: category.parentId,
+                          children: category.children,
+                       },
+                    ],
+                    category
+                 )
+               : [],
          });
       } else {
          myCategories.push({
             ...cat,
-            children:
-               cat.children && cat.children.length > 0
-                  ? buildNewCategories(parentId, car.children, category)
-                  : [],
+            children: cat.children
+               ? buildNewCategories(parentId, car.children, category)
+               : [],
          });
       }
    }
