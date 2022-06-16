@@ -13,6 +13,7 @@ const Products = () => {
    const [categoryId, setCategoryId] = useState("");
    const [productPictures, setProductPictures] = useState([]);
    const category = useSelector((state) => state.category);
+   const [show, setShow] = useState(false);
    const dispatch = useDispatch();
 
    const handleClose = () => {
@@ -108,7 +109,7 @@ const Products = () => {
                   : null}
                <input
                   type="file"
-                  name="productPictures"
+                  name="productPicture"
                   onChange={handleProductPictures}
                />
             </Modal.Body>
