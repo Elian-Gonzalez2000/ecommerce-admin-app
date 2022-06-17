@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Input from "../../components/UI/Input";
 import { addProduct } from "../../actions/product.action";
@@ -13,6 +13,7 @@ const Products = () => {
    const [categoryId, setCategoryId] = useState("");
    const [productPictures, setProductPictures] = useState([]);
    const category = useSelector((state) => state.category);
+   const product = useSelector((state) => state.product);
    const [show, setShow] = useState(false);
    const dispatch = useDispatch();
 
@@ -46,6 +47,39 @@ const Products = () => {
       return options;
    };
 
+   const renderProducts = () => {
+      return (
+         <Table responsive="sm">
+            <thead>
+               <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Description</th>
+                  <th>Category</th>
+               </tr>
+            </thead>
+            <tbody>
+               {product.products.length > 0
+                  ? product.products.map((prod, index) => {
+                       return (
+                          <tr key={prod._id}>
+                             <td>{index + 1}</td>
+                             <td>{prod.name}</td>
+                             <td>{prod.price}</td>
+                             <td>{prod.quantity}</td>
+                             <td>{prod.description}</td>
+                             <td>--</td>
+                          </tr>
+                       );
+                    })
+                  : null}
+            </tbody>
+         </Table>
+      );
+   };
+
    return (
       <Layout sidebar>
          <Row>
@@ -60,6 +94,9 @@ const Products = () => {
                   <Button onClick={handleShow}>Add</Button>
                </div>
             </Col>
+         </Row>
+         <Row>
+            <Col>{renderProducts()}</Col>
          </Row>
          <Modal
             show={show}
