@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const Modal = (props) => {
+const NewModal = (props) => {
    return (
       <Modal size={props.size} show={props.show} onHide={props.handleClose}>
          <Modal.Header closeButton>
@@ -9,10 +9,10 @@ const Modal = (props) => {
          </Modal.Header>
          <Modal.Body>{props.children}</Modal.Body>
          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={props.handleClose}>
                Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={props.handleClose}>
                Save Changes
             </Button>
          </Modal.Footer>
@@ -20,4 +20,4 @@ const Modal = (props) => {
    );
 };
 
-export default Modal;
+export default NewModal;
