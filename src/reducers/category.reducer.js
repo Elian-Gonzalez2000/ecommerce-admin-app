@@ -29,7 +29,7 @@ const buildNewCategories = (parentId, categories, category) => {
                ? buildNewCategories(
                     parentId,
                     [
-                       ...car.children,
+                       ...cat.children,
                        {
                           _id: category._id,
                           name: category.name,
