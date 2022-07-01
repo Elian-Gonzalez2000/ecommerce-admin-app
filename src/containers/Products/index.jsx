@@ -4,6 +4,7 @@ import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Input from "../../components/UI/Input";
 import { addProduct } from "../../actions";
+import Modal from "../../components/UI/Modal";
 
 const Products = () => {
    const [name, setName] = useState("");
@@ -88,7 +89,7 @@ const Products = () => {
          <Modal
             show={show}
             onHide={handleClose}
-            onClose={handleClose}
+            handleClose={handleClose}
             modalTitle={"Add new product"}
          >
             <Input

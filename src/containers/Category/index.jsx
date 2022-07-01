@@ -89,7 +89,7 @@ const Category = () => {
          </Container>
          <Modal
             show={show}
-            onClose={handleClose}
+            handleClose={handleClose}
             onHide={handleClose}
             modalTitle={"Add new category"}
          >
