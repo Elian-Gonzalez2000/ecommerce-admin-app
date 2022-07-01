@@ -8,8 +8,7 @@ export const login = (user) => {
          const res = await axios.post("/admin/signin", {
             ...user,
          });
-
-         console.log(res);
+         //console.log(res);
          if (res.status === 200) {
             const { token, user } = res.data;
             localStorage.setItem("token", token);
