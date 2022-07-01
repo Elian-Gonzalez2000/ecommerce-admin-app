@@ -5,7 +5,7 @@ import {
    productConstants,
 } from "./constants";
 
-export default getInitialData = () => {
+export const getInitialData = () => {
    return async (dispatch) => {
       try {
          const res = await axios.post("/initialData");
@@ -19,7 +19,21 @@ export default getInitialData = () => {
                type: productConstants.GET_ALL_PRODUCTS_SUCCESS,
                payload: { products },
             });
+            console.log(res);
          }
-      } catch (err) {}
+      } catch (err) {
+         const { status, data } = err.response;
+         console.log(data);
+         if (status === 400) {
+            dispatch({
+               type: categoryConstants.GET_ALL_CATEGORIES_FAILURE,
+               payload: { err: data.message },
+            });
+            dispatch({
+               type: productConstants.GET_ALL_PRODUCTS_FAILURE,
+               payload: { err: data.message },
+            });
+         }
+      }
    };
 };
