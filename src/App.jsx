@@ -59,6 +59,11 @@ function App() {
       if (!auth.authenticate) {
          dispatch(isUserLoggedIn());
       }
+   }, []);
+   useEffect(() => {
+      if (!auth.authenticate) {
+         dispatch(isUserLoggedIn());
+      }
       if (auth.authenticate) {
          dispatch(getInitialData());
       }
