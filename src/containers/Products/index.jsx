@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Input from "../../components/UI/Input";
 import { addProduct } from "../../actions";
 import Modal from "../../components/UI/Modal";
+import { genericPublicUrl } from "../../urlConfig";
 
 const Products = () => {
    const [name, setName] = useState("");
@@ -65,6 +66,7 @@ const Products = () => {
             <tbody>
                {product.products.length > 0
                   ? product.products.map((prod, index) => {
+                       console.log(prod);
                        return (
                           <tr
                              key={prod._id}
@@ -190,12 +192,12 @@ const Products = () => {
             </Row>
             <Row>
                <Col>
-                  {productDetail.productPictures.map((picture) => {
+                  {productDetail?.productPictures.map((picture) => {
                      return (
                         <div>
                            <img
-                              src={`http//localhost:3002/public/${picture.img}`}
-                              alt=""
+                              src={`${genericPublicUrl(picture.img)}`}
+                              alt={picture.img}
                            />
                         </div>
                      );
