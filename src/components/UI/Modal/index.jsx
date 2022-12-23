@@ -1,6 +1,10 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
+/* 
+   Create a basic modal with the info we need, that info is recive into the props.children
+*/
+
 const NewModal = (props) => {
    return (
       <Modal size={props.size} show={props.show} onHide={props.handleClose}>

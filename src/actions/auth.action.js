@@ -10,6 +10,7 @@ export const login = (user) => {
          });
          //console.log(res);
          if (res.status === 200) {
+            /* Take the token and user from the response, then save in localStorage with setItem, this permite use the token easly in the application */
             const { token, user } = res.data;
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));

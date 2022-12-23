@@ -1,6 +1,10 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
+/* 
+   This component create an input with all the data that need it.
+   Use the bootstrap components for styles
+*/
 const Input = ({ label, type, placeholder, value, onChange, errorMessage }) => {
    return (
       <Form.Group className="mb-3" controlId="formBasicEmail">

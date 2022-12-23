@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCategory } from "../../actions";
 import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
+import CheckboxTree from "react-checkbox-tree";
+import "react-checkbox-tree/lib/react-checkbox-tree.css";
 
 const Category = () => {
    const [categoryName, setCategoryName] = useState("");
