@@ -118,47 +118,8 @@ const Category = () => {
       }
    };
 
-   return (
-      <Layout sidebar>
-         <Container>
-            <Row>
-               <Col md={12}>
-                  <div
-                     style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                     }}
-                  >
-                     <h3>Category</h3>
-                     <Button onClick={handleShow}>Add</Button>
-                  </div>
-               </Col>
-            </Row>
-            <Row>
-               <Col md={12}>
-                  <CheckboxTree
-                     nodes={renderCategories(category.categories)}
-                     checked={checked}
-                     expanded={expanded}
-                     onCheck={(checked) => setChecked(checked)}
-                     onExpand={(expanded) => setExpanded(expanded)}
-                     icons={{
-                        check: <IoIosCheckbox />,
-                        uncheck: <IoIosCheckboxOutline />,
-                        halfCheck: <IoIosCheckboxOutline />,
-                        expandClose: <IoIosArrowForward />,
-                        expandOpen: <IoIosArrowDown />,
-                     }}
-                  />
-               </Col>
-            </Row>
-            <Row>
-               <Col>
-                  <button>Delete</button>
-                  <button onClick={updateCategory}>Edit</button>
-               </Col>
-            </Row>
-         </Container>
+   const renderAddCategoryModal = () => {
+      return (
          <Modal
             show={show}
             handleClose={handleClose}
@@ -189,11 +150,18 @@ const Category = () => {
                onChange={handleCategoryImage}
             />
          </Modal>
+      );
+   };
 
-         {/* Edit categories */}
+   const updateCategoriesForm = () => {
+      setUpdateCategoryModal(false);
+   };
+
+   const renderUpdateCategoriesModal = () => {
+      return (
          <Modal
             show={updateCategoryModal}
-            handleClose={() => setUpdateCategoryModal(false)}
+            handleClose={updateCategoriesForm}
             onHide={handleClose}
             modalTitle={"Update category"}
             size="lg"
@@ -317,6 +285,53 @@ const Category = () => {
                onChange={handleCategoryImage}
             />
          </Modal>
+      );
+   };
+
+   return (
+      <Layout sidebar>
+         <Container>
+            <Row>
+               <Col md={12}>
+                  <div
+                     style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                     }}
+                  >
+                     <h3>Category</h3>
+                     <Button onClick={handleShow}>Add</Button>
+                  </div>
+               </Col>
+            </Row>
+            <Row>
+               <Col md={12}>
+                  <CheckboxTree
+                     nodes={renderCategories(category.categories)}
+                     checked={checked}
+                     expanded={expanded}
+                     onCheck={(checked) => setChecked(checked)}
+                     onExpand={(expanded) => setExpanded(expanded)}
+                     icons={{
+                        check: <IoIosCheckbox />,
+                        uncheck: <IoIosCheckboxOutline />,
+                        halfCheck: <IoIosCheckboxOutline />,
+                        expandClose: <IoIosArrowForward />,
+                        expandOpen: <IoIosArrowDown />,
+                     }}
+                  />
+               </Col>
+            </Row>
+            <Row>
+               <Col>
+                  <button>Delete</button>
+                  <button onClick={updateCategory}>Edit</button>
+               </Col>
+            </Row>
+         </Container>
+
+         {renderAddCategoryModal()}
+         {renderUpdateCategoriesModal()}
       </Layout>
    );
 };
