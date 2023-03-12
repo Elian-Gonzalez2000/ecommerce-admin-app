@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory } from "../../actions";
+import { addCategory, updateCategories } from "../../actions";
 import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
@@ -154,6 +154,23 @@ const Category = () => {
    };
 
    const updateCategoriesForm = () => {
+      const form = new FormData();
+
+      expandedArray.forEach((item, index) => {
+         form.append("_id", item.value);
+         form.append("name", item.name);
+         form.append("parentId", item.parentId ? item.parentId : "");
+         form.append("type", item.type);
+      });
+      checkedArray.forEach((item, index) => {
+         form.append("_id", item.value);
+         form.append("name", item.name);
+         form.append("parentId", item.parentId ? item.parentId : "");
+         form.append("type", item.type);
+      });
+      console.log(expandedArray, checkedArray);
+      dispatch(updateCategories(form));
+
       setUpdateCategoryModal(false);
    };
 
@@ -162,7 +179,6 @@ const Category = () => {
          <Modal
             show={updateCategoryModal}
             handleClose={updateCategoriesForm}
-            onHide={handleClose}
             modalTitle={"Update category"}
             size="lg"
          >
