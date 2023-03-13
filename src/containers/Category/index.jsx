@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory, updateCategories } from "../../actions";
+import { addCategory, getAllCategory, updateCategories } from "../../actions";
 import Input from "../../components/UI/Input";
 import Modal from "../../components/UI/Modal";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
@@ -24,6 +24,7 @@ const Category = () => {
    const [checkedArray, setCheckedArray] = useState([]);
    const [expandedArray, setExpandedArray] = useState([]);
    const [updateCategoryModal, setUpdateCategoryModal] = useState(false);
+   const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
    const category = useSelector((state) => state.category);
    const dispatch = useDispatch();
 
@@ -118,6 +119,18 @@ const Category = () => {
       }
    };
 
+   const renderDeleteCategoryModal = () => {
+      return (
+         <Modal
+            modalTitle="Confirm"
+            show={deleteCategoryModal}
+            handleClose={() => setDeleteCategoryModal(false)}
+         >
+            Are you sure?
+         </Modal>
+      );
+   };
+
    const renderAddCategoryModal = () => {
       return (
          <Modal
@@ -168,8 +181,9 @@ const Category = () => {
          form.append("parentId", item.parentId ? item.parentId : "");
          form.append("type", item.type);
       });
-      console.log(expandedArray, checkedArray);
-      dispatch(updateCategories(form));
+      dispatch(updateCategories(form)).then((res) => {
+         if (res) dispatch(getAllCategory());
+      });
 
       setUpdateCategoryModal(false);
    };
@@ -340,7 +354,9 @@ const Category = () => {
             </Row>
             <Row>
                <Col>
-                  <button>Delete</button>
+                  <button onClick={() => setDeleteCategoryModal(true)}>
+                     Delete
+                  </button>
                   <button onClick={updateCategory}>Edit</button>
                </Col>
             </Row>
@@ -348,6 +364,7 @@ const Category = () => {
 
          {renderAddCategoryModal()}
          {renderUpdateCategoriesModal()}
+         {renderDeleteCategoryModal()}
       </Layout>
    );
 };
