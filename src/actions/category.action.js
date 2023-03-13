@@ -56,9 +56,9 @@ export const updateCategories = (form) => {
    return async (dispatch) => {
       try {
          const res = await axios.post("/category/update", form);
-         //console.log(res);
-         if (res.status === 200) {
+         if (res.status === 201) {
             console.log(res);
+            return true;
          }
       } catch (err) {
          const { status, data } = err.response;
