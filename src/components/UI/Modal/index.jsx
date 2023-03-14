@@ -13,12 +13,23 @@ const NewModal = (props) => {
          </Modal.Header>
          <Modal.Body>{props.children}</Modal.Body>
          <Modal.Footer>
-            <Button variant="secondary" onClick={props.handleClose}>
-               Close
-            </Button>
-            <Button variant="primary" onClick={props.handleClose}>
-               Save Changes
-            </Button>
+            {props.buttons ? (
+               props.buttons.map((btn, index) => {
+                  return (
+                     <Button
+                        key={index}
+                        variant={btn.color}
+                        onClick={btn.onClick}
+                     >
+                        {btn.label}
+                     </Button>
+                  );
+               })
+            ) : (
+               <Button variant="primary" onClick={props.handleClose}>
+                  Save Changes
+               </Button>
+            )}
          </Modal.Footer>
       </Modal>
    );
