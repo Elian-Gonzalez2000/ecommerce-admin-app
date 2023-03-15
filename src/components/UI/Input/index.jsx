@@ -14,6 +14,7 @@ const Input = ({ label, type, placeholder, value, onChange, errorMessage }) => {
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            {...props}
          />
          <Form.Text className="text-muted">{errorMessage}</Form.Text>
       </Form.Group>
