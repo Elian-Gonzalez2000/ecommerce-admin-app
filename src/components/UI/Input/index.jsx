@@ -5,7 +5,8 @@ import { Form } from "react-bootstrap";
    This component create an input with all the data that need it.
    Use the bootstrap components for styles
 */
-const Input = ({ label, type, placeholder, value, onChange, errorMessage }) => {
+const Input = (props) => {
+   const { label, type, placeholder, value, onChange, errorMessage } = props;
    return (
       <Form.Group className="mb-3" controlId="formBasicEmail">
          {label && <Form.Label>{label}</Form.Label>}
@@ -14,7 +15,7 @@ const Input = ({ label, type, placeholder, value, onChange, errorMessage }) => {
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            {...props}
+            className={props.className}
          />
          <Form.Text className="text-muted">{errorMessage}</Form.Text>
       </Form.Group>
