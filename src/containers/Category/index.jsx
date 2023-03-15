@@ -17,9 +17,13 @@ import {
    IoIosCheckbox,
    IoIosArrowForward,
    IoIosArrowDown,
+   IoIosAdd,
+   IoIosTrash,
+   IoIosCloudUpload,
 } from "react-icons/io";
 import UpdateCategoriesModal from "./components/UpdateCategoriesModal";
 import AddCategoryModal from "./components/AddCategoryModal";
+import "./style.css";
 
 const Category = () => {
    const [categoryName, setCategoryName] = useState("");
@@ -41,7 +45,10 @@ const Category = () => {
       form.append("parentId", parentCategoryId);
       form.append("categoryImage", categoryImage);
 
-      dispatch(addCategory(form));
+      if (category.name) {
+         alert("Category name is required");
+         dispatch(addCategory(form));
+      }
 
       setCategoryName("");
       setParentCategoryId("");
@@ -239,7 +246,20 @@ const Category = () => {
                      }}
                   >
                      <h3>Category</h3>
-                     <Button onClick={handleShow}>Add</Button>
+                     <div className="actionBtnContainer">
+                        <button onClick={handleShow}>
+                           <IoIosAdd />
+                           <span>Add</span>
+                        </button>
+                        <button onClick={deleteCategory}>
+                           <IoIosTrash />
+                           <span>Delete</span>{" "}
+                        </button>
+                        <button onClick={updateCategory}>
+                           <IoIosCloudUpload />
+                           <span>Edit</span>
+                        </button>
+                     </div>
                   </div>
                </Col>
             </Row>
@@ -259,12 +279,6 @@ const Category = () => {
                         expandOpen: <IoIosArrowDown />,
                      }}
                   />
-               </Col>
-            </Row>
-            <Row>
-               <Col>
-                  <button onClick={deleteCategory}>Delete</button>
-                  <button onClick={updateCategory}>Edit</button>
                </Col>
             </Row>
          </Container>
