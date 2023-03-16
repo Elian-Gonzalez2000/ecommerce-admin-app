@@ -6,15 +6,16 @@ import { Modal, Button } from "react-bootstrap";
 */
 
 const NewModal = (props) => {
+   const { size, show, handleClose, modalTitle, buttons, ...rest } = props;
    return (
-      <Modal size={props.size} show={props.show} onHide={props.handleClose}>
+      <Modal size={size} show={show} onHide={handleClose}>
          <Modal.Header closeButton>
-            <Modal.Title>{props.modalTitle}</Modal.Title>
+            <Modal.Title>{modalTitle}</Modal.Title>
          </Modal.Header>
          <Modal.Body>{props.children}</Modal.Body>
          <Modal.Footer>
-            {props.buttons ? (
-               props.buttons.map((btn, index) => {
+            {buttons ? (
+               buttons.map((btn, index) => {
                   return (
                      <Button
                         key={index}
@@ -27,11 +28,11 @@ const NewModal = (props) => {
                })
             ) : (
                <Button
-                  {...props}
+                  {...rest}
                   variant="primary"
                   style={{ backgroundColor: "#333" }}
                   className="btn-sm"
-                  onClick={props.handleClose}
+                  onClick={handleClose}
                >
                   Save Changes
                </Button>
