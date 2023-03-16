@@ -181,41 +181,6 @@ const Category = () => {
       }
    };
 
-   const handleDeleteCategoryModal = () => setDeleteCategoryModal(false);
-
-   const renderDeleteCategoryModal = () => {
-      return (
-         <Modal
-            modalTitle="Confirm"
-            show={deleteCategoryModal}
-            handleClose={() => setDeleteCategoryModal(false)}
-            buttons={[
-               {
-                  label: "no",
-                  color: "primary",
-                  onClick: () => {
-                     alert("no");
-                  },
-               },
-               {
-                  label: "yes",
-                  color: "danger",
-                  onClick: () => deleteCategories(),
-               },
-            ]}
-         >
-            <h5>Expanded</h5>
-            {expandedArray.map((item, index) => (
-               <span key={index}>{item.name}</span>
-            ))}
-            <h5>Checked</h5>
-            {checkedArray.map((item, index) => (
-               <span key={index}>{item.name}</span>
-            ))}
-         </Modal>
-      );
-   };
-
    const updateCategoriesForm = () => {
       const form = new FormData();
 
@@ -319,7 +284,6 @@ const Category = () => {
             checkedArray={checkedArray}
             deleteCategories={deleteCategories}
          />
-         {/* {renderDeleteCategoryModal()} */}
       </Layout>
    );
 };
