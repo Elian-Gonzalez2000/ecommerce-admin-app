@@ -49,7 +49,6 @@ const Category = () => {
       if (categoryName) {
          dispatch(addCategory(form)).then((res) => {
             dispatch(getAllCategory());
-            setShow(false);
          });
       } else {
          alert("Category name is required");
@@ -64,6 +63,7 @@ const Category = () => {
       //    categoryImage,
       // };
       // console.log(cat);
+      setShow(false);
    };
    const handleShow = () => setShow(true);
 
