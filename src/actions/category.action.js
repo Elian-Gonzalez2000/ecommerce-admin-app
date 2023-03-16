@@ -39,6 +39,7 @@ export const addCategory = (form) => {
                type: categoryConstants.ADD_NEW_CATEGORY_SUCCESS,
                payload: res.data.category,
             });
+            return true;
          }
       } catch (err) {
          const { status, data } = err.response;
@@ -47,6 +48,7 @@ export const addCategory = (form) => {
                type: categoryConstants.ADD_NEW_CATEGORY_FAILURE,
                payload: { error: data.message },
             });
+            return false;
          }
       }
    };
