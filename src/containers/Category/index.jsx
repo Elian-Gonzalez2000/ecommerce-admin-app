@@ -24,6 +24,7 @@ import {
 import UpdateCategoriesModal from "./components/UpdateCategoriesModal";
 import AddCategoryModal from "./components/AddCategoryModal";
 import "./style.css";
+import DeleteCategoryModal from "./components/DeleteCategoriesModal";
 
 const Category = () => {
    const [categoryName, setCategoryName] = useState("");
@@ -45,9 +46,13 @@ const Category = () => {
       form.append("parentId", parentCategoryId);
       form.append("categoryImage", categoryImage);
 
-      if (category.name) {
+      if (categoryName) {
+         dispatch(addCategory(form)).then((res) => {
+            dispatch(getAllCategory());
+            setShow(false);
+         });
+      } else {
          alert("Category name is required");
-         dispatch(addCategory(form));
       }
 
       setCategoryName("");
@@ -59,7 +64,6 @@ const Category = () => {
       //    categoryImage,
       // };
       // console.log(cat);
-      setShow(false);
    };
    const handleShow = () => setShow(true);
 
@@ -177,6 +181,8 @@ const Category = () => {
       }
    };
 
+   const handleDeleteCategoryModal = () => setDeleteCategoryModal(false);
+
    const renderDeleteCategoryModal = () => {
       return (
          <Modal
@@ -286,7 +292,7 @@ const Category = () => {
          <AddCategoryModal
             show={show}
             handleClose={handleClose}
-            modalTitle={"Update category"}
+            modalTitle="Add category"
             categoryName={categoryName}
             setCategoryName={setCategoryName}
             parentCategoryId={parentCategoryId}
@@ -298,14 +304,22 @@ const Category = () => {
          <UpdateCategoriesModal
             show={updateCategoryModal}
             handleClose={updateCategoriesForm}
-            modalTitle={"Update category"}
+            modalTitle="Update category"
             size="lg"
             expandedArray={expandedArray}
             checkedArray={checkedArray}
             handleCategoryInput={handleCategoryInput}
             categoryList={categoryList}
          />
-         {renderDeleteCategoryModal()}
+         <DeleteCategoryModal
+            modalTitle="Confirm"
+            show={deleteCategoryModal}
+            handleClose={() => setDeleteCategoryModal(false)}
+            expandedArray={expandedArray}
+            checkedArray={checkedArray}
+            deleteCategories={deleteCategories}
+         />
+         {/* {renderDeleteCategoryModal()} */}
       </Layout>
    );
 };
