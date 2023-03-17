@@ -47,9 +47,7 @@ const Category = () => {
       form.append("categoryImage", categoryImage);
 
       if (categoryName) {
-         dispatch(addCategory(form)).then((res) => {
-            dispatch(getAllCategory());
-         });
+         dispatch(addCategory(form));
       } else {
          alert("Category name is required");
       }
