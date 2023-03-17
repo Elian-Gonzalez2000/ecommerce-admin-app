@@ -57,15 +57,20 @@ export const addCategory = (form) => {
 export const updateCategories = (form) => {
    return async (dispatch) => {
       try {
+         dispatch({ type: categoryConstants.UPDATE_CATEGORIES_REQUEST });
          const res = await axios.post("/category/update", form);
          if (res.status === 201) {
             console.log(res);
-            return true;
+            dispatch({ type: categoryConstants.UPDATE_CATEGORIES_SUCCESS });
+            dispatch(getAllCategory());
          }
       } catch (err) {
-         const { status, data } = err.response;
+         const { status } = err.response;
          if (status === 400) {
-            console.log(status, data);
+            dispatch({
+               type: categoryConstants.UPDATE_CATEGORIES_FAILURE,
+               payload: { error: err.response },
+            });
          }
       }
    };
