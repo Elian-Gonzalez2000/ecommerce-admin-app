@@ -86,8 +86,7 @@ export const deleteCategories = (ids) => {
          });
          if (res.status === 200) {
             dispatch({ type: categoryConstants.UPDATE_CATEGORIES_SUCCESS });
-            console.log(res.data, res.status);
-            return true;
+            dispatch(getAllCategory());
          }
       } catch (err) {
          const { status, data } = err.response;
