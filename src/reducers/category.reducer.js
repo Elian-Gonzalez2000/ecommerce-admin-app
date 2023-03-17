@@ -41,7 +41,7 @@ const buildNewCategories = (parentId, categories, category) => {
          myCategories.push({
             ...cat,
             children: cat.children
-               ? buildNewCategories(parentId, car.children, category)
+               ? buildNewCategories(parentId, cat.children, category)
                : [],
          });
       }
@@ -66,7 +66,8 @@ export default (state = initialState, action) => {
          break;
 
       case categoryConstants.ADD_NEW_CATEGORY_SUCCESS:
-         const category = action.payload.category;
+         const category = action.payload;
+         console.log(category);
          const updateCategories = buildNewCategories(
             category.parentId,
             state.categories,
