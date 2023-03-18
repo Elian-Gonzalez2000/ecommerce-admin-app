@@ -10,6 +10,7 @@ import { isUserLoggedIn, getInitialData } from "./actions";
 import Products from "./containers/Products";
 import Orders from "./containers/Orders";
 import Category from "./containers/Category";
+import NewPage from "./containers/NewPage";
 
 function App() {
    const url = "http://localhost:3002/api/admin/signin";
@@ -72,6 +73,10 @@ function App() {
       <div className="App">
          <Routes>
             <Route path="/" exact element={<PrivateRoute component={Home} />} />
+            <Route
+               path="/page"
+               element={<PrivateRoute component={NewPage} />}
+            />
             <Route
                path="/products"
                element={<PrivateRoute component={Products} />}
