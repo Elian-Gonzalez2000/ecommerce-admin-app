@@ -16,6 +16,7 @@ const buildNewCategories = (parentId, categories, category) => {
             _id: category._id,
             name: category_name,
             slug: category.slug,
+            type: category.type,
             children: [],
          },
       ];
@@ -28,6 +29,7 @@ const buildNewCategories = (parentId, categories, category) => {
             name: category.name,
             slug: category.slug,
             parentId: category.parentId,
+            type: category.type,
             children: [],
          };
          myCategories.push({
