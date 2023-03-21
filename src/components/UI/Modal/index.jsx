@@ -32,7 +32,7 @@ const NewModal = (props) => {
                   variant="primary"
                   style={{ backgroundColor: "#333" }}
                   className="btn-sm"
-                  onClick={handleClose}
+                  onClick={props.onSubmit}
                >
                   Save Changes
                </Button>
