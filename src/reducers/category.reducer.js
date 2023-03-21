@@ -87,6 +87,7 @@ export default (state = initialState, action) => {
          state = {
             ...initialState,
             loading: false,
+            error: action.payload.error,
          };
          break;
 
