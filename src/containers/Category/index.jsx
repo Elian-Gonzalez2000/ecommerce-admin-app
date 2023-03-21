@@ -48,6 +48,7 @@ const Category = () => {
 
       if (categoryName) {
          dispatch(addCategory(form));
+         setShow(false);
       } else {
          alert("Category name is required");
       }
@@ -61,7 +62,6 @@ const Category = () => {
       //    categoryImage,
       // };
       // console.log(cat);
-      setShow(false);
    };
    const handleShow = () => setShow(true);
 
@@ -253,7 +253,8 @@ const Category = () => {
 
          <AddCategoryModal
             show={show}
-            handleClose={handleClose}
+            handleClose={() => setShow(false)}
+            onSubmit={handleClose}
             modalTitle="Add category"
             categoryName={categoryName}
             setCategoryName={setCategoryName}
@@ -265,7 +266,8 @@ const Category = () => {
 
          <UpdateCategoriesModal
             show={updateCategoryModal}
-            handleClose={updateCategoriesForm}
+            handleClose={() => setUpdateCategoryModal(false)}
+            onSubmit={updateCategoriesForm}
             modalTitle="Update category"
             size="lg"
             expandedArray={expandedArray}

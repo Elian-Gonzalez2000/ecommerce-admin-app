@@ -7,6 +7,7 @@ const AddCategoryModal = (props) => {
    const {
       show,
       handleClose,
+      onSubmit,
       modalTitle,
       categoryName,
       setCategoryName,
@@ -17,7 +18,12 @@ const AddCategoryModal = (props) => {
    } = props;
 
    return (
-      <Modal show={show} handleClose={handleClose} modalTitle={modalTitle}>
+      <Modal
+         show={show}
+         handleClose={handleClose}
+         modalTitle={modalTitle}
+         onSubmit={onSubmit}
+      >
          <Row>
             <Col>
                <Input
