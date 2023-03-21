@@ -30,7 +30,7 @@ function NewPage() {
          setCreateModal(false);
          setTitle("");
          setType("");
-         setCategory("");
+         setDescription("");
          setProducts([]);
          setBanners([]);
       }
@@ -40,6 +40,7 @@ function NewPage() {
       const category = categories.find(
          (category) => category._id == e.target.value
       );
+      console.log(category, e.target, categories);
       setCategoryId(e.target.value);
       setType(category.type);
    };
@@ -59,7 +60,6 @@ function NewPage() {
 
       if (title === "") {
          alert("Title is required");
-         setCreateModal(false);
          return;
       }
 
@@ -90,7 +90,7 @@ function NewPage() {
             <Container>
                <Row>
                   <Col>
-                     <select
+                     {/* <select
                         className="form-control form-control-sm mb-3"
                         value={categoryId}
                         onChange={(e) => setCategoryId(e.target.value)}
@@ -103,12 +103,20 @@ function NewPage() {
                               </option>
                            );
                         })}
-                     </select>
+                     </select> */}
+                     <Input
+                        type="select"
+                        value={categoryId}
+                        onChange={onCategoryChange}
+                        options={categories}
+                        placeholder={"Select Categories"}
+                     />
                   </Col>
                </Row>
                <Row>
                   <Col>
                      <Input
+                        type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Page Title"
@@ -119,6 +127,7 @@ function NewPage() {
                <Row>
                   <Col>
                      <Input
+                        type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder={"Page Description"}
