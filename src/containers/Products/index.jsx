@@ -90,8 +90,8 @@ const Products = () => {
       return (
          <Modal
             show={show}
-            onHide={handleClose}
-            handleClose={handleClose}
+            onSubmit={handleClose}
+            handleClose={() => setShow(false)}
             modalTitle={"Add new product"}
          >
             <Input
