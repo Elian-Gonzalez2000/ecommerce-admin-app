@@ -1,4 +1,4 @@
-const { orderConstants } = require("../actions/constants");
+import { orderConstants } from "../actions/constants";
 
 const initState = {
    orders: [],
