@@ -7,6 +7,7 @@
    height: 5px;
    background: #777;
    position: relative;
+   top: 11px;
    font-size: 12px;
 }
 .orderStatus.active {
@@ -27,13 +28,14 @@
    background-color: #26a541;
 }
 .orderInfo {
+   width: 60px;
    height: 60px;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
    position: absolute;
    top: -26px;
-   transform: translateX(-50%);
+   transform: translateX(-40%);
 }
 
 .title {
@@ -43,4 +45,19 @@
 .value {
    font-size: 12px;
    text-transform: capitalize;
+}
+
+.order-track-button {
+   margin-left: 50px;
+   display: inline-block;
+}
+
+.order-track-button select,
+.order-track-button button {
+   width: 100%;
+   font-size: 1rem;
+   background-color: #ffffff;
+   border: 1px solid #000000;
+   padding: 0.2rem 0.5rem;
+   border-radius: 5px;
 }
