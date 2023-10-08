@@ -3,9 +3,10 @@ import Layout from "../../components/Layout";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Input from "../../components/UI/Input";
-import { addProduct } from "../../actions";
+import { addProduct, deleteProductById } from "../../actions";
 import Modal from "../../components/UI/Modal";
 import { genericPublicUrl } from "../../urlConfig";
+import { randomUI } from "../../helpers/randomUI";
 
 const Products = () => {
    const [name, setName] = useState("");
@@ -66,17 +67,36 @@ const Products = () => {
             <tbody>
                {product.products.length > 0
                   ? product.products.map((prod, index) => {
-                       console.log(prod);
                        return (
                           <tr
                              key={prod._id}
-                             onClick={() => showProductDetailModal(prod)}
+                             onClick={() => showProductDetailsModal(prod)}
                           >
                              <td>{index + 1}</td>
                              <td>{prod.name}</td>
                              <td>{prod.price}</td>
                              <td>{prod.quantity}</td>
                              <td>{prod.category.name}</td>
+                             <td>
+                                <button
+                                   onClick={(e) => {
+                                      showProductDetailsModal(product);
+                                   }}
+                                >
+                                   info
+                                </button>
+                                <button
+                                   onClick={(e) => {
+                                      e.stopPropagation();
+                                      const payload = {
+                                         productId: prod._id,
+                                      };
+                                      dispatch(deleteProductById(payload));
+                                   }}
+                                >
+                                   del
+                                </button>
+                             </td>
                           </tr>
                        );
                     })
@@ -132,7 +152,7 @@ const Products = () => {
             </select>
             {productPictures.length > 0
                ? productPictures.map((pic, index) => (
-                    <div key={index}>{pic.name}</div>
+                    <div key={randomUI()}>{pic.name}</div>
                  ))
                : null}
             <input
@@ -148,12 +168,12 @@ const Products = () => {
       setProductDetailModal(false);
    };
 
-   const showProductDetailModal = (prod) => {
+   const showProductDetailsModal = (prod) => {
       setProductDetail(prod);
       setProductDetailModal(true);
    };
 
-   const renderShowProductDetailModal = () => {
+   const renderShowProductDetailsModal = () => {
       if (!productDetail) {
          return null;
       }
@@ -194,7 +214,7 @@ const Products = () => {
                <Col>
                   {productDetail?.productPictures.map((picture) => {
                      return (
-                        <div>
+                        <div key={randomUI()}>
                            <img
                               src={`${genericPublicUrl(picture.img)}`}
                               alt={picture.img}
@@ -227,7 +247,7 @@ const Products = () => {
             <Col>{renderProducts()}</Col>
          </Row>
          {renderAddProductModal()}
-         {renderShowProductDetailModal()}
+         {renderShowProductDetailsModal()}
       </Layout>
    );
 };
