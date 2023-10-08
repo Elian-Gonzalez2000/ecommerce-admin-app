@@ -16,6 +16,15 @@ const Signup = (props) => {
    const user = useSelector((state) => state.user);
    const dispatch = useDispatch();
 
+   useEffect(() => {
+      if (!user.loading) {
+         setFirstName("");
+         setLastName("");
+         setEmail("");
+         setPassword("");
+      }
+   }, [user.loading]);
+
    const userSignup = (e) => {
       e.preventDefault();
       const user = {
