@@ -14,29 +14,29 @@ const NewModal = (props) => {
          </Modal.Header>
          <Modal.Body>{props.children}</Modal.Body>
          <Modal.Footer>
-            {buttons ? (
-               buttons.map((btn, index) => {
-                  return (
-                     <Button
-                        key={index}
-                        variant={btn.color}
-                        onClick={btn.onClick}
-                     >
-                        {btn.label}
-                     </Button>
-                  );
-               })
-            ) : (
-               <Button
-                  {...rest}
-                  variant="primary"
-                  style={{ backgroundColor: "#333" }}
-                  className="btn-sm"
-                  onClick={props.onSubmit}
-               >
-                  Save Changes
-               </Button>
-            )}
+            {buttons
+               ? buttons.map((btn, index) => {
+                    return (
+                       <Button
+                          key={index}
+                          variant={btn.color}
+                          onClick={btn.onClick}
+                       >
+                          {btn.label}
+                       </Button>
+                    );
+                 })
+               : props.onSubmit && (
+                    <Button
+                       {...rest}
+                       variant="primary"
+                       style={{ backgroundColor: "#333" }}
+                       className="btn-sm"
+                       onClick={props.onSubmit}
+                    >
+                       Save Changes
+                    </Button>
+                 )}
          </Modal.Footer>
       </Modal>
    );

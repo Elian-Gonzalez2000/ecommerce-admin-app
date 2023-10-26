@@ -1,0 +1,14 @@
+.pictures-container {
+   display: grid;
+   grid-template-columns: repeat(2, 30%);
+   justify-content: space-evenly;
+   align-items: center;
+   gap: 1rem;
+}
+
+.pictures-container img {
+   width: 100%;
+   max-width: 200px;
+   height: auto;
+   max-height: 350px;
+}

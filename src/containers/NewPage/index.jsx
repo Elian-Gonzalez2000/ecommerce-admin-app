@@ -25,7 +25,7 @@ function NewPage() {
    }, [category]);
 
    useEffect(() => {
-      console.log(page);
+      //console.log(page);
       if (!page.loading) {
          setCreateModal(false);
          setTitle("");
@@ -144,6 +144,7 @@ function NewPage() {
                        ))
                      : null}
                   <Col>
+                     <label htmlFor="banners">Banner Image</label>
                      <input
                         type="file"
                         name="banners"
@@ -161,6 +162,7 @@ function NewPage() {
                        ))
                      : null}
                   <Col>
+                     <label htmlFor="products">Products Images</label>
                      <input
                         type="file"
                         name="products"
