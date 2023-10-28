@@ -15,10 +15,12 @@ const storage = getStorage(app);
 
 export const uploadImage = (file) => {
    const imgRef = ref(storage, `images/${file.name}`);
+
    const imgURL = uploadBytes(imgRef, file).then((res) => {
-      console.log("Imagen subida", res);
+      //console.log("Imagen subida", res);
       return getDownloadURL(imgRef);
    });
+   //console.log("referencia: ", imgRef);
 
    return imgURL;
 };
