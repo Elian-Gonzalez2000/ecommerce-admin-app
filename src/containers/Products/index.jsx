@@ -51,8 +51,8 @@ const Products = () => {
 
    const handleProductPictures = (e) => {
       uploadImage(e.target.files[0]).then((res) => setImgUrl([...imgURL, res]));
-      console.log(imgURL);
       setProductPictures([...productPictures, e.target.files[0]]);
+      console.log(imgURL);
    };
 
    const createCategoryList = (categories, options = []) => {
