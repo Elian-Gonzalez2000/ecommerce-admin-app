@@ -1,4 +1,5 @@
 import axios from "../helpers/axios.js";
+import { API_IMBGG_UPLOAD } from "../urlConfig.js";
 import { productConstants } from "./constants.js";
 
 const getProducts = () => {
@@ -21,11 +22,12 @@ const getProducts = () => {
    };
 };
 
-export const addProduct = (form) => {
+export const addProduct = (form, data) => {
    return async (dispatch) => {
       try {
          dispatch({ type: productConstants.ADD_PRODUCT_REQUEST });
-         const res = await axios.post(`product/create`, form);
+
+         const res = await axios.post(`product/create`, data);
          if (res.status === 201) {
             dispatch({ type: productConstants.ADD_PRODUCT_SUCCESS });
             dispatch(getProducts());

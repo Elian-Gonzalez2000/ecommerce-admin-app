@@ -7,6 +7,8 @@ import { addProduct, deleteProductById } from "../../actions";
 import Modal from "../../components/UI/Modal";
 import { genericPublicUrl } from "../../urlConfig";
 import { randomUI } from "../../helpers/randomUI";
+import { uploadImage } from "../../firebase/firebase.client";
+import "./styles.css";
 
 const Products = () => {
    const [name, setName] = useState("");
@@ -17,6 +19,7 @@ const Products = () => {
    const [productPictures, setProductPictures] = useState([]);
    const [productDetail, setProductDetail] = useState(null);
    const [productDetailModal, setProductDetailModal] = useState(false);
+   const [imgURL, setImgUrl] = useState([]);
    const category = useSelector((state) => state.category);
    const product = useSelector((state) => state.product);
    const [show, setShow] = useState(false);
@@ -32,14 +35,24 @@ const Products = () => {
       for (let pic of productPictures) {
          form.append("productPicture", pic);
       }
-      dispatch(addProduct(form));
+      const data = {
+         name,
+         quantity,
+         price,
+         description,
+         category: categoryId,
+         images: imgURL,
+      };
+      dispatch(addProduct(form, data));
       setShow(false);
    };
 
    const handleShow = () => setShow(true);
 
    const handleProductPictures = (e) => {
+      uploadImage(e.target.files[0]).then((res) => setImgUrl([...imgURL, res]));
       setProductPictures([...productPictures, e.target.files[0]]);
+      console.log(imgURL);
    };
 
    const createCategoryList = (categories, options = []) => {
@@ -186,38 +199,38 @@ const Products = () => {
          >
             <Row>
                <Col md="6">
-                  <label>Name</label>
+                  <strong>Name</strong>
                   <p>{productDetail.name}</p>
                </Col>
                <Col md="6">
-                  <label>Price</label>
+                  <strong>Price</strong>
                   <p>{productDetail.price}</p>
                </Col>
             </Row>
             <Row>
                <Col md="6">
-                  <label>Quantity</label>
+                  <strong>Quantity</strong>
                   <p>{productDetail.quantity}</p>
                </Col>
                <Col md="6">
-                  <label>Category</label>
+                  <strong>Category</strong>
                   <p>{productDetail.category.name}</p>
                </Col>
             </Row>
             <Row>
                <Col md="12">
-                  <label>Description</label>
+                  <strong>Description</strong>
                   <p>{productDetail.decription}</p>
                </Col>
             </Row>
             <Row>
-               <Col>
+               <Col className="pictures-container">
                   {productDetail?.productPictures.map((picture) => {
                      return (
                         <div key={randomUI()}>
                            <img
-                              src={`${genericPublicUrl(picture.img)}`}
-                              alt={picture.img}
+                              src={`${picture.imgUrl}`}
+                              alt={`Image URL: ${picture.imgUrl}`}
                            />
                         </div>
                      );
